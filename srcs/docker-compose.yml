@@ -6,3 +6,8 @@ services:
         ports:
             - 443:443
         restart: unless-stopped
+    mariadb:
+        image: mariadb:inception
+        build: ./requirements/mariadb
+        container_name: mariadb
+        restart: unless-stopped
