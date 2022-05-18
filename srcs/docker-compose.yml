@@ -1,13 +1,18 @@
 services:
+    mariadb:
+        image: mariadb:genesis
+        build: ./requirements/mariadb
+        container_name: mariadb
+        restart: unless-stopped
+    wordpress:
+        image: wordpress:genesis
+        build: ./requirements/wordpress
+        container_name: wordpress
+        restart: unless-stopped
     nginx:
-        image: nginx:inception
+        image: nginx:genesis
         build: ./requirements/nginx
         container_name: nginx
         ports:
             - 443:443
-        restart: unless-stopped
-    mariadb:
-        image: mariadb:inception
-        build: ./requirements/mariadb
-        container_name: mariadb
         restart: unless-stopped
