@@ -9,6 +9,8 @@ services:
         build: ./requirements/wordpress
         container_name: wordpress
         restart: unless-stopped
+        depends_on:
+            - mariadb
     nginx:
         image: nginx:genesis
         build: ./requirements/nginx
@@ -16,3 +18,5 @@ services:
         ports:
             - 443:443
         restart: unless-stopped
+        depends_on:
+            - wordpress
