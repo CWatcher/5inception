@@ -1,9 +1,15 @@
+networks:
+    backend:
+    frontend:
+
 services:
     mariadb:
         image: mariadb:genesis
         build: ./requirements/mariadb
         container_name: mariadb
         restart: unless-stopped
+        networks:
+            - backend
     wordpress:
         image: wordpress:genesis
         build: ./requirements/wordpress
@@ -11,6 +17,9 @@ services:
         restart: unless-stopped
         depends_on:
             - mariadb
+        networks:
+            - backend
+            - frontend
     nginx:
         image: nginx:genesis
         build: ./requirements/nginx
@@ -20,3 +29,5 @@ services:
         restart: unless-stopped
         depends_on:
             - wordpress
+        networks:
+            - frontend
