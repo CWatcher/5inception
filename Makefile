@@ -11,7 +11,7 @@ stop:
 	docker-compose --project-directory srcs/ stop
 
 clean:
-	docker-compose --project-directory srcs/ down
+	docker-compose --project-directory srcs/ down -v
 
 #TODO: fclean: clean
 fclean:
