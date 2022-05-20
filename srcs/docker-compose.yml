@@ -1,3 +1,5 @@
+version: "3.8"
+
 networks:
     backend:
     frontend:
@@ -12,6 +14,8 @@ services:
             - backend
     wordpress:
         image: wordpress:genesis
+        volumes:
+            - wordpress_data:/var/www/html/wp
         build: ./requirements/wordpress
         container_name: wordpress
         restart: unless-stopped
@@ -22,6 +26,8 @@ services:
             - frontend
     nginx:
         image: nginx:genesis
+        volumes:
+            - wordpress_data:/var/www/html/wp
         build: ./requirements/nginx
         container_name: nginx
         ports:
