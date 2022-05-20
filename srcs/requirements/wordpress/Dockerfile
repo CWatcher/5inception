@@ -25,3 +25,4 @@ RUN ln -s /usr/share/wordpress /var/www/html/wp
 COPY conf/config-mariadb.php /etc/wordpress/
 
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
+EXPOSE 9000

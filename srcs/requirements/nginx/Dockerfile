@@ -17,5 +17,8 @@ RUN apt-get install -y ssl-cert
 
 COPY conf/sites-available/default.conf /etc/nginx/sites-available/default
 
+# Utils
+RUN apt-get install -y telnet
+
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 EXPOSE 443

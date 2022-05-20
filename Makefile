@@ -1,7 +1,8 @@
 AUTOINDEX = on
 
-run: build
-	docker-compose --project-directory srcs/ up
+run:
+	mkdir -p data/wordpress data/mariadb
+	docker-compose --project-directory srcs/ up -d
 
 build: srcs/requirements/nginx/Dockerfile
 	docker-compose --project-directory srcs/ build
@@ -12,7 +13,8 @@ stop:
 clean:
 	docker-compose --project-directory srcs/ down
 
-fclean: clean
+#TODO: fclean: clean
+fclean:
 	docker-compose --project-directory srcs/ down --rmi all
 
 .PHONY: run build stop clean fclean

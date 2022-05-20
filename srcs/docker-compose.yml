@@ -4,6 +4,14 @@ networks:
     backend:
     frontend:
 
+volumes:
+    wordpress:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: data/wordpress
+
 services:
     mariadb:
         image: mariadb:genesis
@@ -15,7 +23,7 @@ services:
     wordpress:
         image: wordpress:genesis
         volumes:
-            - wordpress_data:/var/www/html/wp
+            - wordpress:/var/www/html/wp
         build: ./requirements/wordpress
         container_name: wordpress
         restart: unless-stopped
@@ -27,7 +35,7 @@ services:
     nginx:
         image: nginx:genesis
         volumes:
-            - wordpress_data:/var/www/html/wp
+            - wordpress:/var/www/html/wp
         build: ./requirements/nginx
         container_name: nginx
         ports:
