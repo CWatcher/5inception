@@ -15,10 +15,10 @@ RUN apt-get update
 RUN apt-get install -y nginx
 RUN apt-get install -y ssl-cert
 
-COPY conf/sites-available/default.conf /etc/nginx/sites-available/default
-
 # Utils
 RUN apt-get install -y telnet
+
+COPY conf/sites-available/default.conf /etc/nginx/sites-available/default
 
 ENTRYPOINT ["nginx", "-g", "daemon off;"]
 EXPOSE 443
