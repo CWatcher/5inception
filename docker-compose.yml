@@ -17,13 +17,20 @@ volumes:
             type: none
             o: bind
             device: data/wordpress
+    mariadb-conf:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: mariadb/etc
 
 services:
     mariadb:
         image: mariadb:genesis
         volumes:
             - mariadb:/var/lib/mysql
-        build: ./requirements/mariadb
+            - mariadb-conf:/etc/mysql
+        build: mariadb
         container_name: mariadb
         restart: unless-stopped
         networks:
@@ -32,7 +39,7 @@ services:
         image: wordpress:genesis
         volumes:
             - wordpress:/var/www/html/wp
-        build: ./requirements/wordpress
+        build: wordpress
         container_name: wordpress
         restart: unless-stopped
         depends_on:
@@ -44,7 +51,7 @@ services:
         image: nginx:genesis
         volumes:
             - wordpress:/var/www/html/wp
-        build: ./requirements/nginx
+        build: nginx
         container_name: nginx
         ports:
             - 443:443
