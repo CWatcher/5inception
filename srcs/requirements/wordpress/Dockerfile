@@ -16,13 +16,17 @@ RUN apt-get update
 # apt-utils causes another even larger warning
 # TODO: try this:
 # RUN export DEBIAN_FRONTEND=noninteractive && ...
+
 RUN apt-get install -y php7.3-fpm
 # php-fpm before php to avoid apache installation
 RUN apt-get install -y php7.3
 RUN apt-get install -y wordpress
 # TODO: avoid apache2 installation by wordpress
+
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY conf/config-mariadb.php /etc/wordpress/
+
+RUN mkdir /run/php
 RUN ln -s /usr/share/wordpress /var/www/html/wp
 
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
