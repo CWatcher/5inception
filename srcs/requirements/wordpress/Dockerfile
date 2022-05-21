@@ -29,5 +29,12 @@ COPY conf/config-mariadb.php /etc/wordpress/
 RUN mkdir /run/php
 RUN ln -s /usr/share/wordpress /var/www/html/wp
 
+#RUN ln -s /etc/php /usr/share/wordpress/etc_php
+#WRONG! The link is processed by a host
+
 ENTRYPOINT ["/usr/sbin/php-fpm7.3", "--nodaemonize"]
+
+#CMD cp /etc/php/ /var/www/html/wp/etc-php
+#WRONG! CMD is args of ENTRYPOINT here
+
 EXPOSE 9000
