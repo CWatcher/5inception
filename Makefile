@@ -17,5 +17,8 @@ clean:
 #TODO: fclean: clean
 fclean:
 	docker-compose --project-directory srcs/ down --rmi all
+	trash data
 
-.PHONY: run build stop clean fclean
+re: fclean run
+
+.PHONY: run build stop clean fclean re
