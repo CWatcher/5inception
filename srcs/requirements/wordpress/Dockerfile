@@ -23,6 +23,9 @@ RUN apt-get install -y php7.3
 RUN apt-get install -y wordpress
 # TODO: avoid apache2 installation by wordpress
 
+# Utils
+RUN apt-get install -y telnet	
+
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY conf/config-mariadb.php /etc/wordpress/
 

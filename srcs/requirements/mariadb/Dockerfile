@@ -21,15 +21,16 @@ RUN apt-get install -y php-twig/buster-backports
 RUN export DEBIAN_FRONTEND=noninteractive && \
 	apt-get install -y phpmyadmin
 
-RUN ln -s /usr/share/phpmyadmin /var/www/html/pma
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 COPY conf/config.inc.php /etc/phpmyadmin/
+
 RUN service mysql start && \
 	mysql -e "CREATE USER pma@localhost IDENTIFIED BY 'ft';" && \
 	mysql -e "GRANT ALL PRIVILEGES ON *.* TO pma@localhost"
-
 RUN service mysql start && \
 	mysql -e "CREATE USER wp@localhost IDENTIFIED BY 'ft';" && \
 	mysql -e "GRANT ALL PRIVILEGES ON wp.* TO wp@localhost" && \
 	mysql -e "CREATE DATABASE wp"
+RUN ln -s /usr/share/phpmyadmin /var/www/html/pma
 
-CMD /usr/bin/mysqld_safe && service php7.3-fpm start
+CMD ["/usr/bin/mysqld_safe"]

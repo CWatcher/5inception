@@ -5,6 +5,12 @@ networks:
     frontend:
 
 volumes:
+    mariadb:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: data/mariadb
     wordpress:
         driver: local
         driver_opts:
@@ -15,6 +21,8 @@ volumes:
 services:
     mariadb:
         image: mariadb:genesis
+        volumes:
+            - mariadb:/var/lib/mysql
         build: ./requirements/mariadb
         container_name: mariadb
         restart: unless-stopped
