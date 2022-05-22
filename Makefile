@@ -13,13 +13,13 @@ stop:
 
 clean:
 	docker-compose --project-directory . down -v
+	trash data 2> /dev/null || return 0
 	trash etc 2> /dev/null || return 0
 
 
 #TODO: fclean: clean
 fclean: clean
 	docker-compose --project-directory . down --rmi all
-	trash data
 
 re: clean run
 

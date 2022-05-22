@@ -28,9 +28,10 @@ RUN service mysql start && \
 	mysql -e "CREATE USER pma@localhost IDENTIFIED BY 'ft';" && \
 	mysql -e "GRANT ALL PRIVILEGES ON *.* TO pma@localhost"
 RUN service mysql start && \
-	mysql -e "CREATE USER wp@localhost IDENTIFIED BY 'ft';" && \
-	mysql -e "GRANT ALL PRIVILEGES ON wp.* TO wp@localhost" && \
-	mysql -e "CREATE DATABASE wp"
+	mysql -e "CREATE DATABASE wp" && \
+	mysql -e "CREATE USER 'wp'@'%' IDENTIFIED BY 'ft';" && \
+	mysql -e "GRANT ALL PRIVILEGES ON wp.* TO wp@'%'"
 RUN ln -s /usr/share/phpmyadmin /var/www/html/pma
 
-CMD ["/usr/bin/mysqld_safe"]
+CMD ["mysqld_safe"]
+EXPOSE 3306
