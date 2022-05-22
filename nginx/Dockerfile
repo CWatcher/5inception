@@ -17,6 +17,7 @@ RUN apt-get install -y ssl-cert
 
 # Utils
 RUN apt-get install -y telnet
+COPY tools/test.php /var/www/html/
 
 COPY conf/sites-available/default.conf /etc/nginx/sites-available/default
 

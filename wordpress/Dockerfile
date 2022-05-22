@@ -24,10 +24,12 @@ RUN apt-get install -y wordpress
 # TODO: avoid apache2 installation by wordpress
 
 # Utils
-RUN apt-get install -y telnet	
+RUN apt-get install -y telnet
+COPY tools/test.php /usr/share/wordpress
+#FAILED! the file is absent there
 
 COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
-COPY conf/config-mariadb.php /etc/wordpress/
+COPY conf/config-mariadb.php /etc/wordpress/wp-config.php
 
 RUN mkdir /run/php
 RUN ln -s /usr/share/wordpress /var/www/html/wp
