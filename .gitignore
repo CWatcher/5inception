@@ -2,5 +2,4 @@
 *.log
 .vscode/
 data/
-srcs/requirements/mariadb/etc/
-mariadb/etc/
+etc/

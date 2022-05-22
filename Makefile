@@ -1,8 +1,8 @@
 AUTOINDEX = on
 
 run: build
-	mkdir -p data/wordpress data/mariadb
-	mkdir -p mariadb/etc
+	mkdir -p data/mariadb data/wordpress
+	mkdir -p etc/mariadb etc/wordpress
 	docker-compose --project-directory . up -d
 
 build:
@@ -13,7 +13,7 @@ stop:
 
 clean:
 	docker-compose --project-directory . down -v
-	trash mariadb/etc 2> /dev/null || return 0
+	trash etc 2> /dev/null || return 0
 
 
 #TODO: fclean: clean

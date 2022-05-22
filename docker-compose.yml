@@ -22,7 +22,13 @@ volumes:
         driver_opts:
             type: none
             o: bind
-            device: mariadb/etc
+            device: etc/mariadb
+    wordpress-conf:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: etc/wordpress
 
 services:
     mariadb:
@@ -39,6 +45,7 @@ services:
         image: wordpress:genesis
         volumes:
             - wordpress:/var/www/html/wp
+            - wordpress-conf:/etc/wordpress
         build: wordpress
         container_name: wordpress
         restart: unless-stopped
