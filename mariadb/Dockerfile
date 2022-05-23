@@ -13,25 +13,13 @@
 FROM debian:buster
 RUN apt-get update
 RUN apt-get install -y mariadb-server
-RUN apt-get install -y php7.3-fpm
-RUN apt-get install -y php
-RUN echo 'deb http://deb.debian.org/debian buster-backports main' >> /etc/apt/sources.list && \
-	apt-get update
-RUN apt-get install -y php-twig/buster-backports
-RUN export DEBIAN_FRONTEND=noninteractive && \
-	apt-get install -y phpmyadmin
 
 COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/
-COPY conf/config.inc.php /etc/phpmyadmin/
 
-RUN service mysql start && \
-	mysql -e "CREATE USER pma@localhost IDENTIFIED BY 'ft';" && \
-	mysql -e "GRANT ALL PRIVILEGES ON *.* TO pma@localhost"
 RUN service mysql start && \
 	mysql -e "CREATE DATABASE wp" && \
 	mysql -e "CREATE USER 'wp'@'%' IDENTIFIED BY 'ft';" && \
 	mysql -e "GRANT ALL PRIVILEGES ON wp.* TO wp@'%'"
-RUN ln -s /usr/share/phpmyadmin /var/www/html/pma
 
 CMD ["mysqld_safe"]
 EXPOSE 3306
