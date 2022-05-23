@@ -32,12 +32,18 @@ volumes:
 
 services:
     mariadb:
+        container_name: mariadb
         image: mariadb:genesis
         volumes:
             - mariadb:/var/lib/mysql
             - mariadb-conf:/etc/mysql
-        build: mariadb
-        container_name: mariadb
+        build:
+            context: mariadb
+            args:
+                - WP_DB_NAME=$WP_DB_NAME
+                - WP_DB_USER=$WP_DB_USER
+                - WP_DB_PASSWORD=$WP_DB_PASSWORD
+                - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
         restart: unless-stopped
         networks:
             - backend
