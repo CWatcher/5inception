@@ -33,7 +33,7 @@ COPY conf/www.conf /etc/php/7.3/fpm/pool.d/
 COPY conf/config-mariadb.php /etc/wordpress/config-default.php
 
 RUN mkdir /run/php
-RUN ln -s /usr/share/wordpress /var/www/html/wp
+RUN ln -s /usr/share/wordpress /var/www/wp
 
 #RUN ln -s /etc/php /usr/share/wordpress/etc_php
 #WRONG! The link is processed by a host

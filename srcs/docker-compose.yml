@@ -51,7 +51,7 @@ services:
         container_name: wordpress
         image: wordpress:genesis
         volumes:
-            - wordpress:/var/www/html/wp
+            - wordpress:/var/www/wp
             - wordpress-conf:/etc/wordpress
         build:
             context: wordpress
@@ -70,7 +70,7 @@ services:
         container_name: nginx
         image: nginx:genesis
         volumes:
-            - wordpress:/var/www/html/wp
+            - wordpress:/var/www/wp
         build: nginx
         ports:
             - 443:443
