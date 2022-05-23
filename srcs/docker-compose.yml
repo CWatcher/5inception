@@ -48,12 +48,18 @@ services:
         networks:
             - backend
     wordpress:
+        container_name: wordpress
         image: wordpress:genesis
         volumes:
             - wordpress:/var/www/html/wp
             - wordpress-conf:/etc/wordpress
-        build: wordpress
-        container_name: wordpress
+        build:
+            context: wordpress
+        environment:
+            - DB_HOST=$WP_DB_HOST
+            - DB_NAME=$WP_DB_NAME
+            - DB_USER=$WP_DB_USER
+            - DB_PASSWORD=$WP_DB_PASSWORD
         restart: unless-stopped
         depends_on:
             - mariadb
@@ -61,11 +67,11 @@ services:
             - backend
             - frontend
     nginx:
+        container_name: nginx
         image: nginx:genesis
         volumes:
             - wordpress:/var/www/html/wp
         build: nginx
-        container_name: nginx
         ports:
             - 443:443
         restart: unless-stopped
