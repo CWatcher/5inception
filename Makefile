@@ -1,7 +1,7 @@
 AUTOINDEX = on
 
 run: build
-	mkdir -p data/mariadb data/wordpress
+	mkdir -p ~/data/mariadb ~/data/wordpress
 	mkdir -p etc/mariadb etc/wordpress
 	docker-compose --project-directory srcs up -d
 
