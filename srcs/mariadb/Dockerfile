@@ -21,5 +21,10 @@ RUN service mysql start && \
 	mysql -e "CREATE USER 'wp'@'%' IDENTIFIED BY 'ft';" && \
 	mysql -e "GRANT ALL PRIVILEGES ON wp.* TO wp@'%'"
 
+COPY conf/wp.sql .
+RUN service mysql start && \
+	mysql wp < wp.sql && \
+	rm wp.sql
+
 CMD ["mysqld_safe"]
 EXPOSE 3306
